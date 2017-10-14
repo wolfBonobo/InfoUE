@@ -47,13 +47,14 @@ public class TrivialBanderas extends AppCompatActivity {
 
     }
 
+//EVENTO BOTON SIGUIENTE
     public void generarPregunta(View view){
         btnVisibles();
        aleatorio=(int)(Math.random()*paises.size());//numero aletorio de 0 a numero de paises en enum/ArrayList
         paisOK=paises.get(aleatorio);//saco el Pais a contestar con numero aleatorio.
         opcionPaises=new ArrayList();
-        opcionPaises.add(paisOK.name());//meto el pais correcto en ArrayList paisOK
-        bandera.setImageResource(paisOK.getBandera());//añado la bandera a la vista
+        opcionPaises.add(paisOK.name());//meto el pais correcto en ArrayList paisOK metodo enum .name()
+        bandera.setImageResource(paisOK.getBandera());//añado la bandera a ImgeView
         tvResult.setVisibility(View.INVISIBLE);
 
       for (int i = 1; i < 4; i++)//for para rellenar 3 opciones mas sin que se repitan
@@ -62,8 +63,7 @@ public class TrivialBanderas extends AppCompatActivity {
             while (esta)
             {
                 aleatorio= (int) (Math.random() * paises.size());//saco pais aleatorio de toda la lista
-                //Toast.makeText(getApplicationContext(),String.valueOf(aleatorio) , Toast.LENGTH_LONG).show();
-                if (!opcionPaises.contains(paises.get(aleatorio).name()))//si no esta, se añade elemento
+                if (!opcionPaises.contains(paises.get(aleatorio).name()))//si no esta en arraylist, se añade elemento
                 {
                     opcionPaises.add(paises.get(aleatorio).name());
                     esta = false;//sale de bucle while
@@ -95,14 +95,15 @@ public class TrivialBanderas extends AppCompatActivity {
         }
         btnSiguiente.setVisibility(View.INVISIBLE);
     }
-
+    //EVENTOS DE btn1,btn2,btn3 y btn4
     public void comprobar(View view){
         btnInisibles();
-        tvResult.setVisibility(View.VISIBLE);
-        respuesta=(Button)view;
+
+        respuesta=(Button)view;//CASTING de view para recuperar el texto del boton pulsado
+
         nPreguntas++;
 
-        if(respuesta.getText().equals(paisOK.name())){
+        if(respuesta.getText().equals(paisOK.name())){//verifiar respuesta
             Toast.makeText(getApplicationContext(),"Correcto! :)" , Toast.LENGTH_LONG).show();
             nAciertos++;
         }
@@ -110,8 +111,9 @@ public class TrivialBanderas extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Error! :(", Toast.LENGTH_LONG).show();
         }
 
-            btnSiguiente.setVisibility(View.VISIBLE);
-        tvResult.setText(String.valueOf((100*nAciertos)/nPreguntas)+" % ");
+        btnSiguiente.setVisibility(View.VISIBLE);
+        tvResult.setText(String.valueOf((100*nAciertos)/nPreguntas)+" % ");//Calculo % aciertos
+        tvResult.setVisibility(View.VISIBLE);
 
     }
     public void btnVisibles(){
